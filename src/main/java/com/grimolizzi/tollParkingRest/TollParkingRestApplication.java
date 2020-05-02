@@ -48,6 +48,15 @@ public class TollParkingRestApplication {
 			spot1.setTimeOfArrival(new Date());
 			this.parkingSpotRepository.save(spot1);
 
+			ParkingSpot spot4 = new ParkingSpot();
+			spot4.setCode("14");
+			spot4.setPossibleCarType(PossibleCarType.GASOLINE);
+			spot4.setTollParking(tollParking1);
+			spot4.setLicensePlate("BB345AE");
+			spot4.setInUse(true);
+			spot4.setTimeOfArrival(new Date());
+			this.parkingSpotRepository.save(spot4);
+
 			ParkingSpot spot2 = new ParkingSpot();
 			spot2.setCode("2A");
 			spot2.setPossibleCarType(PossibleCarType.GASOLINE);

@@ -42,4 +42,15 @@ public class ParkingSpotService {
         parkingSpot.setTollParking(tollParking);
         this.parkingSpotRepository.save(parkingSpot);
     }
+
+    public Iterable<ParkingSpot> retrieveAvailableByTollParkingCode(String tollParkingCode) {
+        TollParking tollParking = this.tollParkingRepository.findByCode(tollParkingCode);
+        return this.parkingSpotRepository.findByTollParkingIdAndInUse(tollParking.getId(), true);
+    }
+
+    public Iterable<ParkingSpot> retrieveAvailableByTollParkingCodeAndType(ParkingSpot parkingSpot) {
+        TollParking tollParking = this.tollParkingRepository.findByCode(parkingSpot.getTollParking().getCode());
+        return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
+                tollParking.getId(), true, parkingSpot.getPossibleCarType());
+    }
 }
