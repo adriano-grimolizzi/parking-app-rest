@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "ca5cfe59-b002-4d17-a0c9-9c5bf5a8dd9e",
+		"name": "TollParking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ALL PARKING SPOTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL TOLL PARKINGS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tollParkings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tollParkings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET SPOTS BY PARKING CODE",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/tollParkingCode/5S",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"tollParkingCode",
+						"5S"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET SPOTS BY PARKING NAME",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/tollParkingName/5th Street",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"tollParkingName",
+						"5th Street"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET AVAILABLE SPOTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/available/tollParkingCode/5S/possibleCarType/GASOLINE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"available",
+						"tollParkingCode",
+						"5S",
+						"possibleCarType",
+						"GASOLINE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET AVAILABLE SPOTS (Not Found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/available/tollParkingCode/1A/possibleCarType/GASOLINE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"available",
+						"tollParkingCode",
+						"1A",
+						"possibleCarType",
+						"GASOLINE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE NEW PARKING SPOT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\" : \"new code\",\n\t\"tollParkingCode\": \"5S\",\n\t\"possibleCarType\": \"GASOLINE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE NEW TOLL PARKING",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/tollParkings/code/QW/name/QWERTY",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tollParkings",
+						"code",
+						"QW",
+						"name",
+						"QWERTY"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HANDLE ARRIVAL",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tollParkingCode\": \"5S\",\n    \"carLicensePlate\": \"YEHASS\",\n    \"possibleCarType\": \"GASOLINE\",\n    \"arrivalDate\": \"2020-01-01T12:00:00.000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/handleArrival",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"handleArrival"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HANDLE DEPARTURE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tollParkingCode\": \"5S\",\n    \"carLicensePlate\": \"YEHASS\",\n    \"departureDate\": \"2020-01-01T14:00:00.000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/parkingSpots/handleDeparture",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parkingSpots",
+						"handleDeparture"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

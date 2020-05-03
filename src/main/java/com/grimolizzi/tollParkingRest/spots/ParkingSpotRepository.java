@@ -2,11 +2,11 @@ package com.grimolizzi.tollParkingRest.spots;
 
 import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
 import com.grimolizzi.tollParkingRest.spots.model.PossibleCarType;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ParkingSpotRepository extends CrudRepository<ParkingSpot, Long> {
+public interface ParkingSpotRepository extends JpaRepository<ParkingSpot, Long> {
 
     Iterable<ParkingSpot> findByTollParkingId(long tollParkingId);
 

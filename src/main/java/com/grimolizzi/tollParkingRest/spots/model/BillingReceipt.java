@@ -18,7 +18,7 @@ public class BillingReceipt {
     private long amountDue;
 
     public BillingReceipt(
-            Date arrivalDate, 
+            Date arrivalDate,
             Date departureDate, 
             int hourlyRate, 
             int fixedAmount) {
