@@ -48,7 +48,7 @@ public class ParkingSpotController {
     }
 
     @PostMapping("/handleDeparture")
-    public void handleDeparture(@RequestBody DepartureRequest request) {
-        this.parkingSpotService.handleDeparture(request);
+    public BillingReceipt handleDeparture(@RequestBody DepartureRequest request) {
+        return this.parkingSpotService.handleDeparture(request);
     }
 }

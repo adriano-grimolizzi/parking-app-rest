@@ -32,6 +32,8 @@ public class TollParkingRestApplication {
 			TollParking tollParking1 = new TollParking();
 			tollParking1.setCode("5S");
 			tollParking1.setName("5th Street");
+			tollParking1.setFixedAmount(10);
+			tollParking1.setHourlyRate(2);
 			this.tollParkingRepository.save(tollParking1);
 
 			TollParking tollParking2 = new TollParking();

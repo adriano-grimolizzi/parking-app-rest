@@ -6,6 +6,7 @@ import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -82,7 +83,7 @@ public class ParkingSpotService {
         return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
     }
 
-    public void handleDeparture(DepartureRequest departureRequest) {
+    public BillingReceipt handleDeparture(DepartureRequest departureRequest) {
         TollParking tollParking = this.tollParkingRepository.findByCode(departureRequest.getTollParkingCode());
         if (tollParking != null) {
             ParkingSpot parkingSpot = this.parkingSpotRepository.findByTollParkingIdAndLicensePlate(
@@ -91,9 +92,32 @@ public class ParkingSpotService {
                 this.parkingSpotRepository.delete(parkingSpot);
                 parkingSpot.setInUse(false);
                 this.parkingSpotRepository.save(parkingSpot);
+
+                BillingReceipt billingReceipt = new BillingReceipt();
+                billingReceipt.setArrivalDate(parkingSpot.getTimeOfArrival());
+                billingReceipt.setDepartureDate(departureRequest.getDepartureDate());
+                billingReceipt.setHoursSpentInParkingSpot(getHoursBetween(
+                        billingReceipt.getArrivalDate(), billingReceipt.getDepartureDate()));
+                long amountDue = billingReceipt.getHoursSpentInParkingSpot()
+                        * tollParking.getHourlyRate()
+                        + tollParking.getFixedAmount();
+                billingReceipt.setAmountDue(amountDue);
+                billingReceipt.setFixedAmount(tollParking.getFixedAmount());
+                billingReceipt.setHourlyRate(tollParking.getHourlyRate());
+                return billingReceipt;
+            } else {
+                // Throw Exception
             }
+            return null;
         } else {
             // Throw Exception
+            return null;
         }
+    }
+
+    private long getHoursBetween(Date arrivalDate, Date departureDate) {
+
+        return (departureDate.getTime() - arrivalDate.getTime()) / 1000 / 3600;
+
     }
 }

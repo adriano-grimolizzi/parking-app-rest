@@ -24,6 +24,9 @@ public class TollParking {
     private String code;
     private String name;
 
+    private int fixedAmount; // can be 0
+    private int hourlyRate;
+
     public TollParking(String code, String name) {
         this.code = code;
         this.name = name;
