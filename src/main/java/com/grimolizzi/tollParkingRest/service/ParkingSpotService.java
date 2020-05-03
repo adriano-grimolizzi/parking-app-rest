@@ -1,6 +1,8 @@
 package com.grimolizzi.tollParkingRest.service;
 
+import com.grimolizzi.tollParkingRest.model.AvailableSpotSearch;
 import com.grimolizzi.tollParkingRest.model.ParkingSpot;
+import com.grimolizzi.tollParkingRest.model.ParkingSpotCreate;
 import com.grimolizzi.tollParkingRest.model.TollParking;
 import com.grimolizzi.tollParkingRest.repository.ParkingSpotRepository;
 import com.grimolizzi.tollParkingRest.repository.TollParkingRepository;
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingSpotService {
 
-    private TollParkingRepository tollParkingRepository;
-    private ParkingSpotRepository parkingSpotRepository;
+    private final TollParkingRepository tollParkingRepository;
+    private final ParkingSpotRepository parkingSpotRepository;
 
     @Autowired
     public ParkingSpotService(
@@ -27,30 +29,55 @@ public class ParkingSpotService {
 
     public Iterable<ParkingSpot> retrieveByTollParkingCode(String tollParkingCode) {
         TollParking tollParking = this.tollParkingRepository.findByCode(tollParkingCode);
-        return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
+        return this.retrieveByTollParkingId(tollParking);
     }
 
     public Iterable<ParkingSpot> retrieveByTollParkingName(String tollParkingName) {
         TollParking tollParking = this.tollParkingRepository.findByName(tollParkingName);
-        return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
+        return this.retrieveByTollParkingId(tollParking);
     }
 
-    public void saveParkingSpot(String parkingSpotCode, String tollParkingCode) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(tollParkingCode);
-        ParkingSpot parkingSpot = new ParkingSpot();
-        parkingSpot.setCode(parkingSpotCode);
-        parkingSpot.setTollParking(tollParking);
-        this.parkingSpotRepository.save(parkingSpot);
+    private Iterable<ParkingSpot> retrieveByTollParkingId(TollParking tollParking) {
+        if (tollParking != null) {
+            return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
+        } else {
+            return null;
+        }
     }
 
-    public Iterable<ParkingSpot> retrieveAvailableByTollParkingCode(String tollParkingCode) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(tollParkingCode);
-        return this.parkingSpotRepository.findByTollParkingIdAndInUse(tollParking.getId(), true);
-    }
-
-    public Iterable<ParkingSpot> retrieveAvailableByTollParkingCodeAndType(ParkingSpot parkingSpot) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(parkingSpot.getTollParking().getCode());
+    public Iterable<ParkingSpot> retrieveAvailableSpot(AvailableSpotSearch search) {
+        long tollParkingId = this.tollParkingRepository.findByCode(search.getTollParkingCode()).getId();
         return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
-                tollParking.getId(), true, parkingSpot.getPossibleCarType());
+                tollParkingId, false, search.getPossibleCarType());
+    }
+
+    public void saveParkingSpot(ParkingSpotCreate parkingSpotCreate) {
+        TollParking tollParking = this.tollParkingRepository.findByCode(parkingSpotCreate.getTollParkingCode());
+        ParkingSpot toBeCreated = new ParkingSpot(
+                tollParking, parkingSpotCreate.getCode(), parkingSpotCreate.getPossibleCarType());
+        this.parkingSpotRepository.save(toBeCreated);
     }
 }
+
+//    public void handleArrival(ArrivalRequest arrivalRequest) {
+//        ParkingSpot searchObject = new ParkingSpot();
+//        TollParking tollPArking = new TollParking();
+//        tollPArking.setCode(arrivalRequest.getTollParkingCode());
+//        searchObject.setTollParking(tollPArking);
+//        searchObject.setPossibleCarType(arrivalRequest.getPossibleCarType());
+//
+//        Iterable<ParkingSpot> availableParkingSpots = this.retrieveAvailableByTollParkingCodeAndType(searchObject);
+//        if (!isEmpty(availableParkingSpots)) {
+//            ParkingSpot parkingSpot = availableParkingSpots.iterator().next();
+//            this.parkingSpotRepository.delete(parkingSpot);
+//            parkingSpot.setInUse(true);
+//            this.parkingSpotRepository.save(parkingSpot);
+//        } else {
+//            // Throw Exception
+//        }
+//    }
+
+//    private static boolean isEmpty(Iterable<ParkingSpot> iterable) {
+//        return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
+//    }
+//}

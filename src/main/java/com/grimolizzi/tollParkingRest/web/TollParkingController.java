@@ -25,9 +25,6 @@ public class TollParkingController {
     public void save(
             @PathVariable String code,
             @PathVariable String name) {
-        TollParking tollParking = new TollParking();
-        tollParking.setCode(code);
-        tollParking.setName(name);
-        this.repository.save(tollParking);
+        this.repository.save(new TollParking(code, name));
     }
 }

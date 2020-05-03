@@ -1,8 +1,6 @@
 package com.grimolizzi.tollParkingRest.web;
 
-import com.grimolizzi.tollParkingRest.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.model.PossibleCarType;
-import com.grimolizzi.tollParkingRest.model.TollParking;
+import com.grimolizzi.tollParkingRest.model.*;
 import com.grimolizzi.tollParkingRest.service.ParkingSpotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +23,7 @@ public class ParkingSpotController {
 
     @GetMapping("/tollParkingName/{tollParkingName}")
     public Iterable<ParkingSpot> findByTollParkingName(@PathVariable String tollParkingName) {
-        return this.parkingSpotService.retrieveByTollParkingCode(tollParkingName);
+        return this.parkingSpotService.retrieveByTollParkingName(tollParkingName);
     }
 
     @GetMapping("/tollParkingCode/{tollParkingCode}")
@@ -33,27 +31,20 @@ public class ParkingSpotController {
         return this.parkingSpotService.retrieveByTollParkingCode(tollParkingCode);
     }
 
-    @GetMapping("/inUse/tollParkingCode/{tollParkingCode}")
-    public Iterable<ParkingSpot> findAvailable(@PathVariable String tollParkingCode) {
-        return this.parkingSpotService.retrieveAvailableByTollParkingCode(tollParkingCode);
-    }
-
-    @GetMapping("/inUse/tollParkingCode/{tollParkingCode}/type/{possibleCarType}")
+    @GetMapping("/available/tollParkingCode/{tollParkingCode}/possibleCarType/{possibleCarType}")
     public Iterable<ParkingSpot> findAvailable(
             @PathVariable String tollParkingCode,
             @PathVariable PossibleCarType possibleCarType) {
-        ParkingSpot search = new ParkingSpot();
-        TollParking tollParking = new TollParking();
-        tollParking.setCode(tollParkingCode);
-        search.setTollParking(tollParking);
-        search.setPossibleCarType(possibleCarType);
-        return this.parkingSpotService.retrieveAvailableByTollParkingCodeAndType(search);
+        return this.parkingSpotService.retrieveAvailableSpot(new AvailableSpotSearch(tollParkingCode, possibleCarType));
     }
 
-    @PostMapping("/code/{parkingSpotCode}/tollParkingCode/{tollParkingCode}")
-    public void save(
-            @PathVariable String parkingSpotCode,
-            @PathVariable String tollParkingCode) {
-        this.parkingSpotService.saveParkingSpot(parkingSpotCode, tollParkingCode);
+    @PostMapping("/create")
+    public void save(@RequestBody ParkingSpotCreate parkingSpotCreate) {
+        this.parkingSpotService.saveParkingSpot(parkingSpotCreate);
     }
+
+//    @PostMapping("/handleArrival")
+//    public void handleArrival(@RequestBody ArrivalRequest request) {
+//        this.parkingSpotService.handleArrival(request);
+//    }
 }
