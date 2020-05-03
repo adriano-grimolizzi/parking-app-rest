@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.spots;
+package com.grimolizzi.tollParkingRest.spots.model;
 
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import lombok.Data;

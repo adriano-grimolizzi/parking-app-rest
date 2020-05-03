@@ -1,7 +1,7 @@
 package com.grimolizzi.tollParkingRest;
 
-import com.grimolizzi.tollParkingRest.spots.ParkingSpot;
-import com.grimolizzi.tollParkingRest.spots.PossibleCarType;
+import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
+import com.grimolizzi.tollParkingRest.spots.model.PossibleCarType;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.spots.ParkingSpotRepository;
 import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;

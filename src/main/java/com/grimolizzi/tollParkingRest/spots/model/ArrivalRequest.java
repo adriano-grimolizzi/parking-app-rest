@@ -1,6 +1,5 @@
 package com.grimolizzi.tollParkingRest.spots.model;
 
-import com.grimolizzi.tollParkingRest.spots.PossibleCarType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

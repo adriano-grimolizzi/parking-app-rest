@@ -1,13 +1,13 @@
-package com.grimolizzi.tollParkingRest.spots;
+package com.grimolizzi.tollParkingRest.spots.model;
 
-import com.grimolizzi.tollParkingRest.spots.PossibleCarType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AvailableSpotSearch {
+public class ParkingSpotCreate {
 
+    private String code;
     private String tollParkingCode;
     private PossibleCarType possibleCarType;
 }
