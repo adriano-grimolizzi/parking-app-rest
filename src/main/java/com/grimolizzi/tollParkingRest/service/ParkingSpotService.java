@@ -81,4 +81,19 @@ public class ParkingSpotService {
     private static boolean isEmpty(Iterable<ParkingSpot> iterable) {
         return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
     }
+
+    public void handleDeparture(DepartureRequest departureRequest) {
+        TollParking tollParking = this.tollParkingRepository.findByCode(departureRequest.getTollParkingCode());
+        if (tollParking != null) {
+            ParkingSpot parkingSpot = this.parkingSpotRepository.findByTollParkingIdAndLicensePlate(
+                    tollParking.getId(), departureRequest.getCarLicensePlate());
+            if (parkingSpot != null) {
+                this.parkingSpotRepository.delete(parkingSpot);
+                parkingSpot.setInUse(false);
+                this.parkingSpotRepository.save(parkingSpot);
+            }
+        } else {
+            // Throw Exception
+        }
+    }
 }

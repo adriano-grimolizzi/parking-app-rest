@@ -47,4 +47,9 @@ public class ParkingSpotController {
     public void handleArrival(@RequestBody ArrivalRequest request) {
         this.parkingSpotService.handleArrival(request);
     }
+
+    @PostMapping("/handleDeparture")
+    public void handleDeparture(@RequestBody DepartureRequest request) {
+        this.parkingSpotService.handleDeparture(request);
+    }
 }
