@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest;
+package com.grimolizzi.tollParkingRest.spots;
 
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.spots.ParkingSpotRepository;
