@@ -1,11 +1,12 @@
 package com.grimolizzi.tollParkingRest.parkings;
 
-import com.grimolizzi.tollParkingRest.parkings.TollParking;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TollParkingRepository extends CrudRepository<TollParking, Long> {
+import java.util.Optional;
 
-    TollParking findByName(String name);
+public interface TollParkingRepository extends JpaRepository<TollParking, Long> {
 
-    TollParking findByCode(String code);
+    Optional<TollParking> findByName(String name);
+
+    Optional<TollParking> findByCode(String code);
 }

@@ -1,13 +1,13 @@
 package com.grimolizzi.tollParkingRest.spots;
 
+import com.grimolizzi.tollParkingRest.errorHandling.CarNotFoundException;
+import com.grimolizzi.tollParkingRest.errorHandling.NoAvailableParkingSpotException;
+import com.grimolizzi.tollParkingRest.errorHandling.TollParkingNotFoundException;
 import com.grimolizzi.tollParkingRest.spots.model.*;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.stream.StreamSupport;
 
 @Service
 public class ParkingSpotService {
@@ -27,39 +27,29 @@ public class ParkingSpotService {
         return this.parkingSpotRepository.findAll();
     }
 
-    public Iterable<ParkingSpot> retrieveByTollParkingCode(String tollParkingCode) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(tollParkingCode);
-        return this.retrieveByTollParkingId(tollParking);
-    }
-
     public Iterable<ParkingSpot> retrieveByTollParkingName(String tollParkingName) {
-        TollParking tollParking = this.tollParkingRepository.findByName(tollParkingName);
-        return this.retrieveByTollParkingId(tollParking);
+        TollParking tollParking = this.tollParkingRepository.findByName(tollParkingName)
+                .orElseThrow(() -> new TollParkingNotFoundException("name", tollParkingName));
+        return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
     }
 
-    private Iterable<ParkingSpot> retrieveByTollParkingId(TollParking tollParking) {
-        if (tollParking != null) {
-            return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
-        } else {
-            return null;
-        }
+    public Iterable<ParkingSpot> retrieveByTollParkingCode(String tollParkingCode) {
+        TollParking tollParking = this.retrieveTollParkingOrThrowException(tollParkingCode);
+        return this.parkingSpotRepository.findByTollParkingId(tollParking.getId());
     }
 
     public Iterable<ParkingSpot> retrieveAvailableSpot(AvailableSpotSearch search) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(search.getTollParkingCode());
-        if (tollParking != null) {
-            return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
-                    tollParking.getId(), false, search.getPossibleCarType());
-        } else {
-            return null;
-        }
+        TollParking tollParking = this.retrieveTollParkingOrThrowException(search.getTollParkingCode());
+        return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
+                tollParking.getId(), false, search.getPossibleCarType())
+                .orElseThrow(() -> new NoAvailableParkingSpotException(
+                        search.getTollParkingCode(), search.getPossibleCarType()));
     }
 
     public void saveParkingSpot(ParkingSpotCreate parkingSpotCreate) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(parkingSpotCreate.getTollParkingCode());
-        ParkingSpot toBeCreated = new ParkingSpot(
-                tollParking, parkingSpotCreate.getCode(), parkingSpotCreate.getPossibleCarType());
-        this.parkingSpotRepository.save(toBeCreated);
+        TollParking tollParking = this.retrieveTollParkingOrThrowException(parkingSpotCreate.getTollParkingCode());
+        this.parkingSpotRepository.save(new ParkingSpot(
+                tollParking, parkingSpotCreate.getCode(), parkingSpotCreate.getPossibleCarType()));
     }
 
     public void handleArrival(ArrivalRequest arrivalRequest) {
@@ -67,57 +57,37 @@ public class ParkingSpotService {
         Iterable<ParkingSpot> availableSpots = this.retrieveAvailableSpot(
                 new AvailableSpotSearch(arrivalRequest.getTollParkingCode(), arrivalRequest.getPossibleCarType()));
 
-        if (!isEmpty(availableSpots)) {
-            ParkingSpot parkingSpot = availableSpots.iterator().next();
-            this.parkingSpotRepository.delete(parkingSpot);
-            parkingSpot.setInUse(true);
-            parkingSpot.setTimeOfArrival(arrivalRequest.getArrivalDate());
-            parkingSpot.setLicensePlate(arrivalRequest.getCarLicensePlate());
-            this.parkingSpotRepository.save(parkingSpot);
-        } else {
-            // Throw Exception
-        }
-    }
-
-    private static boolean isEmpty(Iterable<ParkingSpot> iterable) {
-        return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
+        // Take the first available spot
+        ParkingSpot parkingSpot = availableSpots.iterator().next();
+        this.parkingSpotRepository.delete(parkingSpot);
+        parkingSpot.handleRequest(arrivalRequest);
+        this.parkingSpotRepository.save(parkingSpot);
     }
 
     public BillingReceipt handleDeparture(DepartureRequest departureRequest) {
-        TollParking tollParking = this.tollParkingRepository.findByCode(departureRequest.getTollParkingCode());
-        if (tollParking != null) {
-            ParkingSpot parkingSpot = this.parkingSpotRepository.findByTollParkingIdAndLicensePlate(
-                    tollParking.getId(), departureRequest.getCarLicensePlate());
-            if (parkingSpot != null) {
-                this.parkingSpotRepository.delete(parkingSpot);
-                parkingSpot.setInUse(false);
-                this.parkingSpotRepository.save(parkingSpot);
+        String tollParkingCode = departureRequest.getTollParkingCode();
+        String licensePlate = departureRequest.getCarLicensePlate();
 
-                BillingReceipt billingReceipt = new BillingReceipt();
-                billingReceipt.setArrivalDate(parkingSpot.getTimeOfArrival());
-                billingReceipt.setDepartureDate(departureRequest.getDepartureDate());
-                billingReceipt.setHoursSpentInParkingSpot(getHoursBetween(
-                        billingReceipt.getArrivalDate(), billingReceipt.getDepartureDate()));
-                long amountDue = billingReceipt.getHoursSpentInParkingSpot()
-                        * tollParking.getHourlyRate()
-                        + tollParking.getFixedAmount();
-                billingReceipt.setAmountDue(amountDue);
-                billingReceipt.setFixedAmount(tollParking.getFixedAmount());
-                billingReceipt.setHourlyRate(tollParking.getHourlyRate());
-                return billingReceipt;
-            } else {
-                // Throw Exception
-            }
-            return null;
-        } else {
-            // Throw Exception
-            return null;
-        }
+        TollParking tollParking = this.retrieveTollParkingOrThrowException(tollParkingCode);
+        ParkingSpot parkingSpot = this.parkingSpotRepository
+                .findByTollParkingIdAndLicensePlate(tollParking.getId(), licensePlate)
+                .orElseThrow(() -> new CarNotFoundException(tollParkingCode, licensePlate));
+
+        this.parkingSpotRepository.delete(parkingSpot);
+        parkingSpot.setInUse(false);
+        parkingSpot.setLicensePlate(null);
+        this.parkingSpotRepository.save(parkingSpot);
+
+        return new BillingReceipt(
+                parkingSpot.getTimeOfArrival(),
+                departureRequest.getDepartureDate(),
+                tollParking.getHourlyRate(),
+                tollParking.getFixedAmount()
+        );
     }
 
-    private long getHoursBetween(Date arrivalDate, Date departureDate) {
-
-        return (departureDate.getTime() - arrivalDate.getTime()) / 1000 / 3600;
-
+    private TollParking retrieveTollParkingOrThrowException(String code) {
+        return this.tollParkingRepository.findByCode(code)
+                .orElseThrow(() -> new TollParkingNotFoundException("code", code));
     }
 }

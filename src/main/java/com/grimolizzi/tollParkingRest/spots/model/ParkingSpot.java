@@ -36,4 +36,10 @@ public class ParkingSpot {
         this.code = code;
         this.possibleCarType = possibleCarType;
     }
+
+    public void handleRequest(ArrivalRequest request) {
+        this.setInUse(true);
+        this.setTimeOfArrival(request.getArrivalDate());
+        this.setLicensePlate(request.getCarLicensePlate());
+    }
 }
