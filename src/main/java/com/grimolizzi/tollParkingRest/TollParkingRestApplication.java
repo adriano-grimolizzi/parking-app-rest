@@ -1,10 +1,10 @@
 package com.grimolizzi.tollParkingRest;
 
-import com.grimolizzi.tollParkingRest.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.model.PossibleCarType;
-import com.grimolizzi.tollParkingRest.model.TollParking;
-import com.grimolizzi.tollParkingRest.repository.ParkingSpotRepository;
-import com.grimolizzi.tollParkingRest.repository.TollParkingRepository;
+import com.grimolizzi.tollParkingRest.spots.ParkingSpot;
+import com.grimolizzi.tollParkingRest.spots.PossibleCarType;
+import com.grimolizzi.tollParkingRest.parkings.TollParking;
+import com.grimolizzi.tollParkingRest.spots.ParkingSpotRepository;
+import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

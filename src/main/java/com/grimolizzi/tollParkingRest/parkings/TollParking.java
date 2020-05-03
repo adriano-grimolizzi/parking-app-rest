@@ -1,6 +1,7 @@
-package com.grimolizzi.tollParkingRest.model;
+package com.grimolizzi.tollParkingRest.parkings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.grimolizzi.tollParkingRest.spots.ParkingSpot;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

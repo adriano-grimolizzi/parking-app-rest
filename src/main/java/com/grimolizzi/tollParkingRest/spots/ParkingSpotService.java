@@ -1,8 +1,8 @@
-package com.grimolizzi.tollParkingRest.service;
+package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.model.*;
-import com.grimolizzi.tollParkingRest.repository.ParkingSpotRepository;
-import com.grimolizzi.tollParkingRest.repository.TollParkingRepository;
+import com.grimolizzi.tollParkingRest.spots.model.*;
+import com.grimolizzi.tollParkingRest.parkings.TollParking;
+import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

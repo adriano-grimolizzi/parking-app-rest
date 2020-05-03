@@ -1,7 +1,6 @@
-package com.grimolizzi.tollParkingRest.web;
+package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.model.*;
-import com.grimolizzi.tollParkingRest.service.ParkingSpotService;
+import com.grimolizzi.tollParkingRest.spots.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

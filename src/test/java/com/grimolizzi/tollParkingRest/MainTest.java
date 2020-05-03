@@ -1,7 +1,7 @@
 package com.grimolizzi.tollParkingRest;
 
-import com.grimolizzi.tollParkingRest.model.ArrivalRequest;
-import com.grimolizzi.tollParkingRest.model.PossibleCarType;
+import com.grimolizzi.tollParkingRest.spots.model.ArrivalRequest;
+import com.grimolizzi.tollParkingRest.spots.PossibleCarType;
 
 import java.util.Date;
 

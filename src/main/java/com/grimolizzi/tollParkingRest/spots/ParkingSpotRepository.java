@@ -1,7 +1,5 @@
-package com.grimolizzi.tollParkingRest.repository;
+package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ParkingSpotRepository extends CrudRepository<ParkingSpot, Long> {

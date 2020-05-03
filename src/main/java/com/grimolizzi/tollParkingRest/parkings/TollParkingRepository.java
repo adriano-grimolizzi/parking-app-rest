@@ -1,6 +1,6 @@
-package com.grimolizzi.tollParkingRest.repository;
+package com.grimolizzi.tollParkingRest.parkings;
 
-import com.grimolizzi.tollParkingRest.model.TollParking;
+import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import org.springframework.data.repository.CrudRepository;
 
 public interface TollParkingRepository extends CrudRepository<TollParking, Long> {
