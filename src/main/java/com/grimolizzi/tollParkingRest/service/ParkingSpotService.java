@@ -1,13 +1,12 @@
 package com.grimolizzi.tollParkingRest.service;
 
-import com.grimolizzi.tollParkingRest.model.AvailableSpotSearch;
-import com.grimolizzi.tollParkingRest.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.model.ParkingSpotCreate;
-import com.grimolizzi.tollParkingRest.model.TollParking;
+import com.grimolizzi.tollParkingRest.model.*;
 import com.grimolizzi.tollParkingRest.repository.ParkingSpotRepository;
 import com.grimolizzi.tollParkingRest.repository.TollParkingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.StreamSupport;
 
 @Service
 public class ParkingSpotService {
@@ -46,9 +45,13 @@ public class ParkingSpotService {
     }
 
     public Iterable<ParkingSpot> retrieveAvailableSpot(AvailableSpotSearch search) {
-        long tollParkingId = this.tollParkingRepository.findByCode(search.getTollParkingCode()).getId();
-        return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
-                tollParkingId, false, search.getPossibleCarType());
+        TollParking tollParking = this.tollParkingRepository.findByCode(search.getTollParkingCode());
+        if (tollParking != null) {
+            return this.parkingSpotRepository.findByTollParkingIdAndInUseAndPossibleCarType(
+                    tollParking.getId(), false, search.getPossibleCarType());
+        } else {
+            return null;
+        }
     }
 
     public void saveParkingSpot(ParkingSpotCreate parkingSpotCreate) {
@@ -57,27 +60,25 @@ public class ParkingSpotService {
                 tollParking, parkingSpotCreate.getCode(), parkingSpotCreate.getPossibleCarType());
         this.parkingSpotRepository.save(toBeCreated);
     }
+
+    public void handleArrival(ArrivalRequest arrivalRequest) {
+
+        Iterable<ParkingSpot> availableSpots = this.retrieveAvailableSpot(
+                new AvailableSpotSearch(arrivalRequest.getTollParkingCode(), arrivalRequest.getPossibleCarType()));
+
+        if (!isEmpty(availableSpots)) {
+            ParkingSpot parkingSpot = availableSpots.iterator().next();
+            this.parkingSpotRepository.delete(parkingSpot);
+            parkingSpot.setInUse(true);
+            parkingSpot.setTimeOfArrival(arrivalRequest.getArrivalDate());
+            parkingSpot.setLicensePlate(arrivalRequest.getCarLicensePlate());
+            this.parkingSpotRepository.save(parkingSpot);
+        } else {
+            // Throw Exception
+        }
+    }
+
+    private static boolean isEmpty(Iterable<ParkingSpot> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
+    }
 }
-
-//    public void handleArrival(ArrivalRequest arrivalRequest) {
-//        ParkingSpot searchObject = new ParkingSpot();
-//        TollParking tollPArking = new TollParking();
-//        tollPArking.setCode(arrivalRequest.getTollParkingCode());
-//        searchObject.setTollParking(tollPArking);
-//        searchObject.setPossibleCarType(arrivalRequest.getPossibleCarType());
-//
-//        Iterable<ParkingSpot> availableParkingSpots = this.retrieveAvailableByTollParkingCodeAndType(searchObject);
-//        if (!isEmpty(availableParkingSpots)) {
-//            ParkingSpot parkingSpot = availableParkingSpots.iterator().next();
-//            this.parkingSpotRepository.delete(parkingSpot);
-//            parkingSpot.setInUse(true);
-//            this.parkingSpotRepository.save(parkingSpot);
-//        } else {
-//            // Throw Exception
-//        }
-//    }
-
-//    private static boolean isEmpty(Iterable<ParkingSpot> iterable) {
-//        return StreamSupport.stream(iterable.spliterator(), false).count() == 0;
-//    }
-//}

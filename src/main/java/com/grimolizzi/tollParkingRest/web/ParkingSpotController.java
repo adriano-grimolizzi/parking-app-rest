@@ -43,8 +43,8 @@ public class ParkingSpotController {
         this.parkingSpotService.saveParkingSpot(parkingSpotCreate);
     }
 
-//    @PostMapping("/handleArrival")
-//    public void handleArrival(@RequestBody ArrivalRequest request) {
-//        this.parkingSpotService.handleArrival(request);
-//    }
+    @PostMapping("/handleArrival")
+    public void handleArrival(@RequestBody ArrivalRequest request) {
+        this.parkingSpotService.handleArrival(request);
+    }
 }
