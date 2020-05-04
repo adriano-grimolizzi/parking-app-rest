@@ -1,4 +1,4 @@
-# parking-app-rest
+# Toll Parking REST
 
 This is a REST API for handling Toll Parking request. It has been implemented using Spring Boot and Spring Data JPA for 
 handling the database interactions.
