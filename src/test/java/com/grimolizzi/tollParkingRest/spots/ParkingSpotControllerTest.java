@@ -2,9 +2,7 @@ package com.grimolizzi.tollParkingRest.spots;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
-import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
-import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.spots.model.ParkingSpotCreate;
+import com.grimolizzi.tollParkingRest.spots.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +40,6 @@ public class ParkingSpotControllerTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
         this.mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -110,6 +107,36 @@ public class ParkingSpotControllerTest {
                 .andExpect(status().isOk());
 
         verify(this.service).saveParkingSpot(toBeCreated);
+    }
+
+    @Test
+    public void shouldHandleArrivalRequest() throws Exception {
+
+        ArrivalRequest toBeHandled = new ArrivalRequest("G1", "BB123CZ", GASOLINE);
+
+        String jsonBody = new ObjectMapper().writeValueAsString(toBeHandled);
+
+        this.mvc.perform(post(URL_TEMPLATE + "/handleArrival")
+                .content(jsonBody)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(this.service).handleArrival(toBeHandled);
+    }
+
+    @Test
+    public void shouldHandleDepartureRequest() throws Exception {
+
+        DepartureRequest toBeHandled = new DepartureRequest("G1", "BB123CZ");
+
+        String jsonBody = new ObjectMapper().writeValueAsString(toBeHandled);
+
+        this.mvc.perform(post(URL_TEMPLATE + "/handleDeparture")
+                .content(jsonBody)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(this.service).handleDeparture(toBeHandled);
     }
 
     private List<ParkingSpot> getMockedList() {

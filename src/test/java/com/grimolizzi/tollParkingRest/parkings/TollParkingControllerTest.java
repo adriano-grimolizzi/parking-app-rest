@@ -40,7 +40,6 @@ public class TollParkingControllerTest {
 
     @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
         this.mvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
