@@ -1,5 +1,6 @@
 package com.grimolizzi.tollParkingRest.parkings;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,7 +19,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.given;
 
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,24 +38,41 @@ public class TollParkingControllerTest {
 
     private MockMvc mvc;
 
-    @Test
-    public void shouldGetAll() throws Exception {
-
+    @Before
+    public void init() {
         MockitoAnnotations.initMocks(this);
         this.mvc = MockMvcBuilders.standaloneSetup(controller).build();
+    }
+
+    @Test
+    public void shouldGetAll() throws Exception {
 
         given(this.repository.findAll()).willReturn(getMockedList());
 
         this.mvc.perform(get(URL_TEMPLATE)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].name", equalTo("name")));
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].name", equalTo("name1")))
+                .andExpect(jsonPath("$[0].code", equalTo("code1")));
+    }
+
+    @Test
+    public void shouldSave() throws Exception {
+
+        TollParking toSave = new TollParking("code1", "name1");
+
+        this.mvc.perform(post(URL_TEMPLATE + "/code/code1/name/name1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(this.repository).save(toSave);
     }
 
     private List<TollParking> getMockedList() {
         List<TollParking> list = new ArrayList<>();
-        list.add(new TollParking("code", "name"));
+        list.add(new TollParking("code1", "name1"));
+        list.add(new TollParking("code2", "name2"));
         return list;
     }
 }
