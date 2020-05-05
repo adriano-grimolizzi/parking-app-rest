@@ -12,4 +12,8 @@ Run from your IDE, or use
 mvn clean spring-boot:run
 ```
 
-Also see: https://github.com/adriano-grimolizzi/parking-app for a non REST API.
+## Testing
+You can find in the root directory a Postman collection with all the necessary requests.
+
+## Also see
+https://github.com/adriano-grimolizzi/parking-app for a non REST API.
