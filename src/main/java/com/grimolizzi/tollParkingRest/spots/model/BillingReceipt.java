@@ -32,7 +32,7 @@ public class BillingReceipt {
                 + this.getFixedAmount();
     }
 
-    private static long getHoursBetween(Date arrivalDate, Date departureDate) {
+    public static long getHoursBetween(Date arrivalDate, Date departureDate) {
         return (departureDate.getTime() - arrivalDate.getTime()) / 1000 / 3600;
     }
 }

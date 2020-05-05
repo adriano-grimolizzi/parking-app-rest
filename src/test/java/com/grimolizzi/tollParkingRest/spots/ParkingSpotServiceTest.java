@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,10 +19,12 @@ import java.util.stream.StreamSupport;
 
 import static com.grimolizzi.tollParkingRest.spots.model.PossibleCarType.*;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(BillingReceipt.class)
 public class ParkingSpotServiceTest {
 
     @InjectMocks
@@ -104,6 +108,22 @@ public class ParkingSpotServiceTest {
         // I don't know why, but in the test this delete method is called with the parking spot
         // AFTER the request is handled. In the actual code it's called BEFORE.
         verify(this.parkingSpotRepository).save(toBeVerified);
+    }
+
+    @Test
+    public void shouldHandleDeparture() {
+        Optional<TollParking> garageOptional = Optional.of(
+                new TollParking(1L, null, "G1", "Garage1", 2, 2));
+
+        when(this.tollParkingRepository.findByCode("G1")).thenReturn(garageOptional);
+        when(this.parkingSpotRepository.findByTollParkingIdAndLicensePlate(1L, "BB123CZ"))
+                .thenReturn(Optional.of(this.getMockedList().get(0)));
+
+        PowerMockito.mockStatic(BillingReceipt.class);
+        given(BillingReceipt.getHoursBetween(new Date(1575190800000L), new Date(1575190800000L))).willReturn(2L);
+        this.service.handleDeparture(new DepartureRequest("G1", "BB123CZ", new Date(1575190800000L)));
+        verify(this.parkingSpotRepository).delete(this.getMockedList().get(0));
+        verify(this.parkingSpotRepository).save(this.getMockedList().get(0));
     }
 
     private List<ParkingSpot> getMockedList() {
