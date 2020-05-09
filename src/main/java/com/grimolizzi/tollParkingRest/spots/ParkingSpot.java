@@ -1,5 +1,7 @@
-package com.grimolizzi.tollParkingRest.spots.model;
+package com.grimolizzi.tollParkingRest.spots;
 
+import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
+import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +36,13 @@ public class ParkingSpot {
     public ParkingSpot(TollParking tollParking, String code, PossibleCarType possibleCarType) {
         this.tollParking = tollParking;
         this.code = code;
+        this.possibleCarType = possibleCarType;
+    }
+
+    public ParkingSpot(String tollParkingCode, PossibleCarType possibleCarType) {
+        TollParking tollParking = new TollParking();
+        tollParking.setCode(tollParkingCode);
+        this.tollParking = tollParking;
         this.possibleCarType = possibleCarType;
     }
 

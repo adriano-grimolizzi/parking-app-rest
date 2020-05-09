@@ -1,9 +1,7 @@
 package com.grimolizzi.tollParkingRest.spots;
 
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
-import com.grimolizzi.tollParkingRest.spots.ParkingSpotRepository;
-import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.spots.model.PossibleCarType;
+import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

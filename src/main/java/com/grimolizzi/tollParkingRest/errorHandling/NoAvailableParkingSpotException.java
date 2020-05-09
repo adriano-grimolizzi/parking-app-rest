@@ -1,6 +1,6 @@
 package com.grimolizzi.tollParkingRest.errorHandling;
 
-import com.grimolizzi.tollParkingRest.spots.model.PossibleCarType;
+import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 
 public class NoAvailableParkingSpotException extends RuntimeException {
 

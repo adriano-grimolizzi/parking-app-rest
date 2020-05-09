@@ -5,7 +5,11 @@ import com.grimolizzi.tollParkingRest.errorHandling.NoAvailableParkingSpotExcept
 import com.grimolizzi.tollParkingRest.errorHandling.TollParkingNotFoundException;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
-import com.grimolizzi.tollParkingRest.spots.model.*;
+import com.grimolizzi.tollParkingRest.model.*;
+import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
+import com.grimolizzi.tollParkingRest.requests.DepartureRequest;
+import com.grimolizzi.tollParkingRest.requests.ParkingSpotCreate;
+import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,7 +17,6 @@ import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.springframework.http.MediaType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,13 +24,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
-import static com.grimolizzi.tollParkingRest.spots.model.PossibleCarType.*;
+import static com.grimolizzi.tollParkingRest.model.PossibleCarType.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(BillingReceipt.class)

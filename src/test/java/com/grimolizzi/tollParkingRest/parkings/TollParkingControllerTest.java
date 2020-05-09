@@ -1,11 +1,11 @@
 package com.grimolizzi.tollParkingRest.parkings;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import org.springframework.http.MediaType;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(MockitoJUnitRunner.class)
 public class TollParkingControllerTest {
 
-    private static final String URL_TEMPLATE = "/tollParkings";
+    private static final String URL_TEMPLATE = "/toll-parkings";
 
     @InjectMocks
     private TollParkingController controller;
@@ -59,13 +59,16 @@ public class TollParkingControllerTest {
     @Test
     public void shouldSave() throws Exception {
 
-        TollParking toSave = new TollParking("code1", "name1");
+        TollParking toBeCreated = new TollParking("code1", "name1");
 
-        this.mvc.perform(post(URL_TEMPLATE + "/code/code1/name/name1")
+        String jsonBody = new ObjectMapper().writeValueAsString(toBeCreated);
+
+        this.mvc.perform(post(URL_TEMPLATE)
+                .content(jsonBody)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        verify(this.repository).save(toSave);
+        verify(this.repository).save(toBeCreated);
     }
 
     private List<TollParking> getMockedList() {

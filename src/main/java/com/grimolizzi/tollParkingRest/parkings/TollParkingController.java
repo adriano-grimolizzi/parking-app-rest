@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/tollParkings")
+@RequestMapping("/toll-parkings")
 public class TollParkingController {
 
     private TollParkingRepository repository;
@@ -19,10 +19,8 @@ public class TollParkingController {
         return this.repository.findAll();
     }
 
-    @PostMapping("/code/{code}/name/{name}")
-    public void save(
-            @PathVariable String code,
-            @PathVariable String name) {
-        this.repository.save(new TollParking(code, name));
+    @PostMapping
+    public void save(@RequestBody TollParking request) {
+        this.repository.save(new TollParking(request.getCode(), request.getName()));
     }
 }

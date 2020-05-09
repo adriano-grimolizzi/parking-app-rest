@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.spots.model;
+package com.grimolizzi.tollParkingRest.model;
 
 public enum PossibleCarType {
 	GASOLINE,

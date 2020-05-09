@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.grimolizzi</groupId>
-    <artifactId>tollParkingRest</artifactId>
+    <artifactId>parking-app-rest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tollParkingRest</name>
     <description>Demo project for Spring Boot</description>

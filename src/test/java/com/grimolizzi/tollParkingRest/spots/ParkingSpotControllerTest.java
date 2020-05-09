@@ -2,20 +2,22 @@ package com.grimolizzi.tollParkingRest.spots;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
-import com.grimolizzi.tollParkingRest.spots.model.*;
+import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
+import com.grimolizzi.tollParkingRest.requests.DepartureRequest;
+import com.grimolizzi.tollParkingRest.requests.ParkingSpotCreate;
+import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.*;
 
-import static com.grimolizzi.tollParkingRest.spots.model.PossibleCarType.*;
+import static com.grimolizzi.tollParkingRest.model.PossibleCarType.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.verify;
@@ -28,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(MockitoJUnitRunner.class)
 public class ParkingSpotControllerTest {
 
-    private static final String URL_TEMPLATE = "/parkingSpots";
+    private static final String URL_TEMPLATE = "/parking-spots";
 
     @InjectMocks
     private ParkingSpotController controller;

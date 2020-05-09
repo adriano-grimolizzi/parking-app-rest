@@ -1,7 +1,6 @@
 package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
-import com.grimolizzi.tollParkingRest.spots.model.PossibleCarType;
+import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

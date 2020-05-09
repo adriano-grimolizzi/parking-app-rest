@@ -1,7 +1,7 @@
 package com.grimolizzi.tollParkingRest.parkings;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.grimolizzi.tollParkingRest.spots.model.ParkingSpot;
+import com.grimolizzi.tollParkingRest.spots.ParkingSpot;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +25,7 @@ public class TollParking {
 
     private String code;
     private String name;
-
-    private int fixedAmount; // can be 0
+    private int fixedAmount;
     private int hourlyRate;
 
     public TollParking(String code, String name) {

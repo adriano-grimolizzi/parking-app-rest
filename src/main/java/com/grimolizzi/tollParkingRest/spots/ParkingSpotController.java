@@ -1,11 +1,15 @@
 package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.spots.model.*;
+import com.grimolizzi.tollParkingRest.model.*;
+import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
+import com.grimolizzi.tollParkingRest.requests.DepartureRequest;
+import com.grimolizzi.tollParkingRest.requests.ParkingSpotCreate;
+import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/parkingSpots")
+@RequestMapping("/parking-spots")
 public class ParkingSpotController {
 
     private ParkingSpotService parkingSpotService;

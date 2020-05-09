@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.spots.model;
+package com.grimolizzi.tollParkingRest.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
