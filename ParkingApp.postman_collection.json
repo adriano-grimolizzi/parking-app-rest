@@ -192,15 +192,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/parking-spots/create",
+							"raw": "http://localhost:8080/parking-spots",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"parking-spots",
-								"create"
+								"parking-spots"
 							]
 						}
 					},
