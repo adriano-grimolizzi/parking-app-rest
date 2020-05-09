@@ -5,7 +5,7 @@ import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
 import com.grimolizzi.tollParkingRest.requests.DepartureRequest;
 import com.grimolizzi.tollParkingRest.requests.ParkingSpotCreate;
-import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
+import com.grimolizzi.tollParkingRest.requests.AvailableSpotSearch;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

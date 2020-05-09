@@ -21,6 +21,6 @@ public class TollParkingController {
 
     @PostMapping
     public void save(@RequestBody TollParking request) {
-        this.repository.save(new TollParking(request.getCode(), request.getName()));
+        this.repository.save(request);
     }
 }

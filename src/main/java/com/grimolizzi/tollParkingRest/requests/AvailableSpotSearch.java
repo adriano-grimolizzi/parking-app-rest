@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.spots.model;
+package com.grimolizzi.tollParkingRest.requests;
 
 import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 

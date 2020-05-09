@@ -9,7 +9,7 @@ import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import com.grimolizzi.tollParkingRest.requests.ArrivalRequest;
 import com.grimolizzi.tollParkingRest.requests.DepartureRequest;
 import com.grimolizzi.tollParkingRest.requests.ParkingSpotCreate;
-import com.grimolizzi.tollParkingRest.spots.model.AvailableSpotSearch;
+import com.grimolizzi.tollParkingRest.requests.AvailableSpotSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
