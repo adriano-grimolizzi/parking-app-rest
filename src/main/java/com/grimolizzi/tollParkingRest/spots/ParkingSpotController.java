@@ -41,7 +41,7 @@ public class ParkingSpotController {
         return this.parkingSpotService.retrieveAvailableSpot(new AvailableSpotSearch(tollParkingCode, possibleCarType));
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public void save(@RequestBody ParkingSpotCreate parkingSpotCreate) {
         this.parkingSpotService.saveParkingSpot(parkingSpotCreate);
     }

@@ -103,7 +103,7 @@ public class ParkingSpotControllerTest {
 
         String jsonBody = new ObjectMapper().writeValueAsString(toBeCreated);
 
-        this.mvc.perform(post(URL_TEMPLATE + "/create")
+        this.mvc.perform(post(URL_TEMPLATE)
                 .content(jsonBody)
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
