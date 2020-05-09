@@ -15,5 +15,8 @@ mvn clean spring-boot:run
 ## Testing
 You can find in the root directory a Postman collection with all the necessary requests.
 
+## Update 9 May:
+You can now access the Swagger on http://localhost:8080/swagger-ui.html.
+
 ## Also see
 https://github.com/adriano-grimolizzi/parking-app for a non REST API.
