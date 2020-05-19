@@ -58,93 +58,55 @@
 			"name": "Parking Spots",
 			"item": [
 				{
-					"name": "ALL PARKING SPOTS",
+					"name": "GET PARKING SPOTS",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{service-address}}/parking-spots",
+							"raw": "{{service-address}}/parking-spots?tollParkingCode=mockParkCode1&tollParkingName=mockParkName1",
 							"host": [
 								"{{service-address}}"
 							],
 							"path": [
 								"parking-spots"
+							],
+							"query": [
+								{
+									"key": "tollParkingCode",
+									"value": "mockParkCode1"
+								},
+								{
+									"key": "tollParkingName",
+									"value": "mockParkName1"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GET SPOTS BY PARKING CODE",
+					"name": "GET PARKING SPOTS (Not Found)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{service-address}}/parking-spots/tollParkingCode/mockParkCode1",
+							"raw": "{{service-address}}/parking-spots?tollParkingCode=notExistingParkCode1",
 							"host": [
 								"{{service-address}}"
 							],
 							"path": [
-								"parking-spots",
-								"tollParkingCode",
-								"mockParkCode1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET SPOTS BY PARKING CODE (Not Found)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{service-address}}/parking-spots/tollParkingCode/bogusParkCode1",
-							"host": [
-								"{{service-address}}"
+								"parking-spots"
 							],
-							"path": [
-								"parking-spots",
-								"tollParkingCode",
-								"bogusParkCode1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET SPOTS BY PARKING NAME",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{service-address}}/parking-spots/tollParkingName/mockParkName1",
-							"host": [
-								"{{service-address}}"
-							],
-							"path": [
-								"parking-spots",
-								"tollParkingName",
-								"mockParkName1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET SPOTS BY PARKING NAME (Not Found)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{service-address}}/parking-spots/tollParkingName/bogusParkName1",
-							"host": [
-								"{{service-address}}"
-							],
-							"path": [
-								"parking-spots",
-								"tollParkingName",
-								"bogusParkName1"
+							"query": [
+								{
+									"key": "tollParkingCode",
+									"value": "notExistingParkCode1"
+								},
+								{
+									"key": "tollParkingName",
+									"value": "notExistingParkName1",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -163,17 +125,23 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/mockParkCode1/possibleCarType/GASOLINE",
+							"raw": "{{service-address}}/parking-spots/available?tollParkingCode=mockParkCode1&possibleCarType=GASOLINE",
 							"host": [
 								"{{service-address}}"
 							],
 							"path": [
 								"parking-spots",
-								"available",
-								"tollParkingCode",
-								"mockParkCode1",
-								"possibleCarType",
-								"GASOLINE"
+								"available"
+							],
+							"query": [
+								{
+									"key": "tollParkingCode",
+									"value": "mockParkCode1"
+								},
+								{
+									"key": "possibleCarType",
+									"value": "GASOLINE"
+								}
 							]
 						}
 					},
@@ -181,21 +149,34 @@
 				},
 				{
 					"name": "GET AVAILABLE SPOTS (Not Found)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/bogusParkCode/possibleCarType/GASOLINE",
+							"raw": "{{service-address}}/parking-spots/available?tollParkingCode=mockParkCode1&possibleCarType=ELECTRIC_20KW",
 							"host": [
 								"{{service-address}}"
 							],
 							"path": [
 								"parking-spots",
-								"available",
-								"tollParkingCode",
-								"bogusParkCode",
-								"possibleCarType",
-								"GASOLINE"
+								"available"
+							],
+							"query": [
+								{
+									"key": "tollParkingCode",
+									"value": "mockParkCode1"
+								},
+								{
+									"key": "possibleCarType",
+									"value": "ELECTRIC_20KW"
+								}
 							]
 						}
 					},

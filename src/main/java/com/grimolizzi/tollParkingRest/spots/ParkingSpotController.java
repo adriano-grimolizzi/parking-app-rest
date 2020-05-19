@@ -20,24 +20,22 @@ public class ParkingSpotController {
     }
 
     @GetMapping
-    public Iterable<ParkingSpot> findAll() {
-        return this.parkingSpotService.retrieveAllParkingSpots();
+    public Iterable<ParkingSpot> find(
+            @RequestParam(required = false) String tollParkingCode,
+            @RequestParam(required = false) String tollParkingName) {
+        if (tollParkingCode != null) {
+            return this.parkingSpotService.retrieveByTollParkingCode(tollParkingCode);
+        } else if (tollParkingName != null) {
+            return this.parkingSpotService.retrieveByTollParkingName(tollParkingName);
+        } else {
+            return this.parkingSpotService.retrieveAllParkingSpots();
+        }
     }
 
-    @GetMapping("/tollParkingName/{tollParkingName}")
-    public Iterable<ParkingSpot> findByTollParkingName(@PathVariable String tollParkingName) {
-        return this.parkingSpotService.retrieveByTollParkingName(tollParkingName);
-    }
-
-    @GetMapping("/tollParkingCode/{tollParkingCode}")
-    public Iterable<ParkingSpot> findByTollParkingCode(@PathVariable String tollParkingCode) {
-        return this.parkingSpotService.retrieveByTollParkingCode(tollParkingCode);
-    }
-
-    @GetMapping("/available/tollParkingCode/{tollParkingCode}/possibleCarType/{possibleCarType}")
+    @GetMapping("/available")
     public Iterable<ParkingSpot> findAvailable(
-            @PathVariable String tollParkingCode,
-            @PathVariable PossibleCarType possibleCarType) {
+            @RequestParam String tollParkingCode,
+            @RequestParam PossibleCarType possibleCarType) {
         return this.parkingSpotService.retrieveAvailableSpot(new AvailableSpotSearch(tollParkingCode, possibleCarType));
     }
 
