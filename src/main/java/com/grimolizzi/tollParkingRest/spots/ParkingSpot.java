@@ -34,16 +34,10 @@ public class ParkingSpot {
     boolean inUse;
 
     public ParkingSpot(TollParking tollParking, String code, PossibleCarType possibleCarType) {
-        this.tollParking = tollParking;
-        this.code = code;
-        this.possibleCarType = possibleCarType;
-    }
-
-    public ParkingSpot(String tollParkingCode, PossibleCarType possibleCarType) {
-        TollParking tollParking = new TollParking();
-        tollParking.setCode(tollParkingCode);
-        this.tollParking = tollParking;
-        this.possibleCarType = possibleCarType;
+        this.setTollParking(tollParking);
+        this.setCode(code);
+        this.setPossibleCarType(possibleCarType);
+        // the boolean "inUse" will be automatically set to false
     }
 
     public void handleRequest(ArrivalRequest request) {

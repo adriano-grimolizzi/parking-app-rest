@@ -1,7 +1,6 @@
 package com.grimolizzi.tollParkingRest;
 
 import com.grimolizzi.tollParkingRest.spots.ParkingSpot;
-import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.spots.ParkingSpotRepository;
 import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
@@ -11,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Date;
+import static com.grimolizzi.tollParkingRest.model.PossibleCarType.*;
 
 @SpringBootApplication
 public class TollParkingRestApplication {
@@ -28,54 +27,20 @@ public class TollParkingRestApplication {
 
 	@Bean
 	CommandLineRunner runner() {
-		return args -> {
-			TollParking tollParking1 = new TollParking();
-			tollParking1.setCode("5S");
-			tollParking1.setName("5th Street");
-			tollParking1.setFixedAmount(10);
-			tollParking1.setHourlyRate(2);
-			this.tollParkingRepository.save(tollParking1);
+		return args -> initMockData();
+	}
 
-			TollParking tollParking2 = new TollParking();
-			tollParking2.setCode("1A");
-			tollParking2.setName("10th Avenue");
-			this.tollParkingRepository.save(tollParking2);
+	public void initMockData() {
+		TollParking mockParking1 = new TollParking("mockParkCode1", "mockParkName1", 10, 1);
+		TollParking mockParking2 = new TollParking("mockParkCode2", "mockParkName2", 20, 2);
+		this.tollParkingRepository.save(mockParking1);
+		this.tollParkingRepository.save(mockParking2);
 
-			ParkingSpot spot1 = new ParkingSpot();
-			spot1.setCode("1A");
-			spot1.setPossibleCarType(PossibleCarType.ELECTRIC_20KW);
-			spot1.setTollParking(tollParking1);
-			spot1.setLicensePlate("BB345AE");
-			spot1.setInUse(true);
-			spot1.setTimeOfArrival(new Date());
-			this.parkingSpotRepository.save(spot1);
-
-			ParkingSpot spot4 = new ParkingSpot();
-			spot4.setCode("14");
-			spot4.setPossibleCarType(PossibleCarType.GASOLINE);
-			spot4.setTollParking(tollParking1);
-			spot4.setLicensePlate("BB345AE");
-			spot4.setInUse(true);
-			spot4.setTimeOfArrival(new Date());
-			this.parkingSpotRepository.save(spot4);
-
-			ParkingSpot spot2 = new ParkingSpot();
-			spot2.setCode("2A");
-			spot2.setPossibleCarType(PossibleCarType.GASOLINE);
-			spot2.setTollParking(tollParking1);
-			spot2.setLicensePlate("FD45390");
-			spot2.setInUse(false);
-			spot2.setTimeOfArrival(new Date());
-			this.parkingSpotRepository.save(spot2);
-
-			ParkingSpot spot3 = new ParkingSpot();
-			spot3.setCode("2B");
-			spot3.setPossibleCarType(PossibleCarType.ELECTRIC_50KW);
-			spot3.setTollParking(tollParking2);
-			spot3.setLicensePlate("ER345RR");
-			spot3.setInUse(false);
-			spot3.setTimeOfArrival(new Date());
-			this.parkingSpotRepository.save(spot3);
-		};
+		this.parkingSpotRepository.save(
+				new ParkingSpot(mockParking1, "mockSpotCode1", GASOLINE));
+		this.parkingSpotRepository.save(
+				new ParkingSpot(mockParking2, "mockSpotCode2", ELECTRIC_20KW));
+		this.parkingSpotRepository.save(
+				new ParkingSpot(mockParking1, "mockSpotCode3", ELECTRIC_50KW));
 	}
 }

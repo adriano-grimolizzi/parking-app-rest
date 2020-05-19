@@ -1,7 +1,5 @@
 package com.grimolizzi.tollParkingRest.parkings;
 
-import com.grimolizzi.tollParkingRest.parkings.TollParking;
-import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

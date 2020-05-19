@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"code\" : \"NTP\",\n\t\"name\": \"New Toll Parking\",\n    \"fixedAmount\": 2,\n    \"hourlyRate\": 1\n}",
+							"raw": "{\n\t\"code\" : \"newParkingCode1\",\n\t\"name\": \"newParkingName1\",\n    \"fixedAmount\": 30,\n    \"hourlyRate\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,12 +23,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/toll-parkings",
-							"protocol": "http",
+							"raw": "{{service-address}}/toll-parkings",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"toll-parkings"
 							]
@@ -42,12 +40,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/toll-parkings",
-							"protocol": "http",
+							"raw": "{{service-address}}/toll-parkings",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"toll-parkings"
 							]
@@ -67,12 +63,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/parking-spots",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots"
 							]
@@ -86,16 +80,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/parking-spots/tollParkingCode/5S",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots/tollParkingCode/mockParkCode1",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots",
 								"tollParkingCode",
-								"5S"
+								"mockParkCode1"
 							]
 						}
 					},
@@ -107,16 +99,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/parking-spots/tollParkingName/5th Street",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots/tollParkingName/mockParkName1",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots",
 								"tollParkingName",
-								"5th Street"
+								"mockParkName1"
 							]
 						}
 					},
@@ -135,17 +125,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/parking-spots/available/tollParkingCode/5S/possibleCarType/GASOLINE",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/mockParkCode1/possibleCarType/GASOLINE",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots",
 								"available",
 								"tollParkingCode",
-								"5S",
+								"mockParkCode1",
 								"possibleCarType",
 								"GASOLINE"
 							]
@@ -159,17 +147,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/parking-spots/available/tollParkingCode/1A/possibleCarType/GASOLINE",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/notExistingParking/possibleCarType/GASOLINE",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots",
 								"available",
 								"tollParkingCode",
-								"1A",
+								"notExistingParking",
 								"possibleCarType",
 								"GASOLINE"
 							]
@@ -184,7 +170,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"code\" : \"new code\",\n\t\"tollParkingCode\": \"5S\",\n\t\"possibleCarType\": \"GASOLINE\"\n}",
+							"raw": "{\n\t\"code\" : \"newSpotCode1\",\n\t\"tollParkingCode\": \"newParkingCode1\",\n\t\"possibleCarType\": \"GASOLINE\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -192,12 +178,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/parking-spots",
-							"protocol": "http",
+							"raw": "{{service-address}}/parking-spots",
 							"host": [
-								"localhost"
+								"{{service-address}}"
 							],
-							"port": "8080",
 							"path": [
 								"parking-spots"
 							]
@@ -215,7 +199,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"tollParkingCode\": \"5S\",\n    \"carLicensePlate\": \"YEHASS\",\n    \"possibleCarType\": \"GASOLINE\",\n    \"arrivalDate\": \"2020-01-01T12:00:00.000\"\n}",
+					"raw": "{\n\t\"tollParkingCode\": \"mockParkCode1\",\n    \"carLicensePlate\": \"mockLicensePlate\",\n    \"possibleCarType\": \"GASOLINE\",\n    \"arrivalDate\": \"2020-01-01T12:00:00.000\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -223,12 +207,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/parking-spots/handleArrival",
-					"protocol": "http",
+					"raw": "{{service-address}}/parking-spots/handleArrival",
 					"host": [
-						"localhost"
+						"{{service-address}}"
 					],
-					"port": "8080",
 					"path": [
 						"parking-spots",
 						"handleArrival"
@@ -244,7 +226,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"tollParkingCode\": \"5S\",\n    \"carLicensePlate\": \"YEHASS\",\n    \"departureDate\": \"2020-01-01T14:00:00.000\"\n}",
+					"raw": "{\n\t\"tollParkingCode\": \"mockParkCode1\",\n    \"carLicensePlate\": \"mockLicensePlate\",\n    \"departureDate\": \"2020-01-01T14:00:00.000\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -252,12 +234,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/parking-spots/handleDeparture",
-					"protocol": "http",
+					"raw": "{{service-address}}/parking-spots/handleDeparture",
 					"host": [
-						"localhost"
+						"{{service-address}}"
 					],
-					"port": "8080",
 					"path": [
 						"parking-spots",
 						"handleDeparture"

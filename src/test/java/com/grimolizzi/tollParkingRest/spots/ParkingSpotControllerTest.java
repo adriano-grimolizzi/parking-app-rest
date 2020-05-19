@@ -53,7 +53,7 @@ public class ParkingSpotControllerTest {
         this.mvc.perform(get(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(3)))
                 .andExpect(jsonPath("$[0].code", equalTo("S1")))
                 .andExpect(jsonPath("$[1].code", equalTo("S2")));
     }
@@ -154,6 +154,7 @@ public class ParkingSpotControllerTest {
         List<ParkingSpot> result = new ArrayList<>();
         result.add(spot1);
         result.add(spot2);
+        result.add(spot3);
         return result;
     }
 }

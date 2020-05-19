@@ -29,7 +29,14 @@ public class TollParking {
     private int hourlyRate;
 
     public TollParking(String code, String name) {
-        this.code = code;
-        this.name = name;
+        this.setCode(code);
+        this.setName(name);
+    }
+
+    public TollParking(String code, String name, int fixedAmount, int hourlyRate) {
+        this.setCode(code);
+        this.setName(name);
+        this.setFixedAmount(fixedAmount);
+        this.setHourlyRate(hourlyRate);
     }
 }
