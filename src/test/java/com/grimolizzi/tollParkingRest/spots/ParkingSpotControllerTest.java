@@ -64,7 +64,7 @@ public class ParkingSpotControllerTest {
         when(this.service.retrieveByTollParkingName("Garage1")).thenReturn(
                 Collections.singletonList(getMockedList().get(0)));
 
-        this.mvc.perform(get(URL_TEMPLATE + "/tollParkingName/Garage1")
+        this.mvc.perform(get(URL_TEMPLATE + "?tollParkingName=Garage1")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -77,7 +77,7 @@ public class ParkingSpotControllerTest {
         when(this.service.retrieveByTollParkingCode("G2")).thenReturn(
                 Collections.singletonList(getMockedList().get(1)));
 
-        this.mvc.perform(get(URL_TEMPLATE + "/tollParkingCode/G2")
+        this.mvc.perform(get(URL_TEMPLATE + "?tollParkingCode=G2")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -89,7 +89,7 @@ public class ParkingSpotControllerTest {
 
         AvailableSpotSearch search = new AvailableSpotSearch("G2", ELECTRIC_50KW);
 
-        this.mvc.perform(get(URL_TEMPLATE + "/available/tollParkingCode/G2/possibleCarType/ELECTRIC_50KW")
+        this.mvc.perform(get(URL_TEMPLATE + "/available?tollParkingCode=G2&possibleCarType=ELECTRIC_50KW")
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
 
