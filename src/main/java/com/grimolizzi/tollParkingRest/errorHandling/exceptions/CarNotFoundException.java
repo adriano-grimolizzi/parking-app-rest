@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.errorHandling;
+package com.grimolizzi.tollParkingRest.errorHandling.exceptions;
 
 public class CarNotFoundException extends RuntimeException {
 

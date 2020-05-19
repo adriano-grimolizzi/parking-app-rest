@@ -94,6 +94,25 @@
 					"response": []
 				},
 				{
+					"name": "GET SPOTS BY PARKING CODE (Not Found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-address}}/parking-spots/tollParkingCode/bogusParkCode1",
+							"host": [
+								"{{service-address}}"
+							],
+							"path": [
+								"parking-spots",
+								"tollParkingCode",
+								"bogusParkCode1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "GET SPOTS BY PARKING NAME",
 					"request": {
 						"method": "GET",
@@ -107,6 +126,25 @@
 								"parking-spots",
 								"tollParkingName",
 								"mockParkName1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SPOTS BY PARKING NAME (Not Found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-address}}/parking-spots/tollParkingName/bogusParkName1",
+							"host": [
+								"{{service-address}}"
+							],
+							"path": [
+								"parking-spots",
+								"tollParkingName",
+								"bogusParkName1"
 							]
 						}
 					},
@@ -147,7 +185,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/notExistingParking/possibleCarType/GASOLINE",
+							"raw": "{{service-address}}/parking-spots/available/tollParkingCode/bogusParkCode/possibleCarType/GASOLINE",
 							"host": [
 								"{{service-address}}"
 							],
@@ -155,7 +193,7 @@
 								"parking-spots",
 								"available",
 								"tollParkingCode",
-								"notExistingParking",
+								"bogusParkCode",
 								"possibleCarType",
 								"GASOLINE"
 							]

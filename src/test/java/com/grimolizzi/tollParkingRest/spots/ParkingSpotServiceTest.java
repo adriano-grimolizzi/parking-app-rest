@@ -1,8 +1,8 @@
 package com.grimolizzi.tollParkingRest.spots;
 
-import com.grimolizzi.tollParkingRest.errorHandling.CarNotFoundException;
-import com.grimolizzi.tollParkingRest.errorHandling.NoAvailableParkingSpotException;
-import com.grimolizzi.tollParkingRest.errorHandling.TollParkingNotFoundException;
+import com.grimolizzi.tollParkingRest.errorHandling.exceptions.CarNotFoundException;
+import com.grimolizzi.tollParkingRest.errorHandling.exceptions.NoAvailableParkingSpotException;
+import com.grimolizzi.tollParkingRest.errorHandling.exceptions.TollParkingNotFoundException;
 import com.grimolizzi.tollParkingRest.parkings.TollParking;
 import com.grimolizzi.tollParkingRest.parkings.TollParkingRepository;
 import com.grimolizzi.tollParkingRest.model.*;

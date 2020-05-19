@@ -1,4 +1,4 @@
-package com.grimolizzi.tollParkingRest.errorHandling;
+package com.grimolizzi.tollParkingRest.errorHandling.exceptions;
 
 import com.grimolizzi.tollParkingRest.model.PossibleCarType;
 
