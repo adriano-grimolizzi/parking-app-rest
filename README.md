@@ -47,3 +47,10 @@ then start the application on localhost like usual (see the 'Usage' section abov
 
 
 NB: I'm using Docker Tollbox, as a normal docker installation is not possible on Windows 10 Home edition. That's why in the application.properties file the MySQL url is on 192.168.99.100. If you are using Windows Pro, you should change it to localhost.
+
+## Update 20 May:
+You can use the branch "docker-compose" to test the whole application (Spring + MySQL) by just executing:
+```bash
+docker-compose up --build
+```
+The application will answer to localhost:8081 (or 192.168.99.100:8081 if you are using Docker Toolbox).
