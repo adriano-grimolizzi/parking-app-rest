@@ -19,7 +19,6 @@ class TollParkingRestApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(parkingSpotController).isNotNull();
-		assertThat(tollParkingController).isNotNull();
+		
 	}
 }
