@@ -31,16 +31,16 @@ public class TollParkingRestApplication {
 	}
 
 	public void initMockData() {
-		TollParking mockParking1 = new TollParking("mockParkCode1", "mockParkName1", 10, 1);
-		TollParking mockParking2 = new TollParking("mockParkCode2", "mockParkName2", 20, 2);
-		this.tollParkingRepository.save(mockParking1);
-		this.tollParkingRepository.save(mockParking2);
+//		TollParking mockParking1 = new TollParking("mockParkCode1", "mockParkName1", 10, 1);
+//		TollParking mockParking2 = new TollParking("mockParkCode2", "mockParkName2", 20, 2);
+//		this.tollParkingRepository.save(mockParking1);
+//		this.tollParkingRepository.save(mockParking2);
 
-		this.parkingSpotRepository.save(
-				new ParkingSpot(mockParking1, "mockSpotCode1", GASOLINE));
-		this.parkingSpotRepository.save(
-				new ParkingSpot(mockParking2, "mockSpotCode2", ELECTRIC_20KW));
-		this.parkingSpotRepository.save(
-				new ParkingSpot(mockParking1, "mockSpotCode3", ELECTRIC_50KW));
+//		this.parkingSpotRepository.save(
+//				new ParkingSpot(mockParking1, "mockSpotCode1", GASOLINE));
+//		this.parkingSpotRepository.save(
+//				new ParkingSpot(mockParking2, "mockSpotCode2", ELECTRIC_20KW));
+//		this.parkingSpotRepository.save(
+//				new ParkingSpot(mockParking1, "mockSpotCode3", ELECTRIC_50KW));
 	}
 }

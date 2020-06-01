@@ -46,7 +46,7 @@ public class TollParkingControllerTest {
     @Test
     public void shouldGetAll() throws Exception {
 
-        given(this.repository.findAll()).willReturn(getMockedList());
+//        given(this.repository.findAll()).willReturn(getMockedList());
 
         this.mvc.perform(get(URL_TEMPLATE)
                 .contentType(MediaType.APPLICATION_JSON))
