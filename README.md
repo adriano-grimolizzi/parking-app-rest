@@ -54,3 +54,8 @@ You can use the branch "docker-compose" to test the whole application (Spring + 
 docker-compose up --build
 ```
 The application will answer to localhost:8081 (or 192.168.99.100:8081 if you are using Docker Toolbox).
+
+## Update 1 June:
+Coverage: fixed low coverage in JaCoCo due to the fact that it ignores the Lombok plugin by default by adding the required Lombok configuration.
+Logging: added logging via SLF4J
+Concurrency: added @Async methods in "async" branch for TollParking
